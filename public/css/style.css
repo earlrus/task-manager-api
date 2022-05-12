@@ -1,0 +1,28 @@
+body{
+    background-color: rgb(96, 151, 151);
+}
+
+h1{
+    text-align: center;
+    font-size: 3rem;
+}
+
+h2{
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 2em;
+}
+
+form{
+    text-align: center;
+}
+
+input{
+    margin-top: 1em;
+    margin-left: 0.5em;
+}
+
+button{
+    margin-top: 2em;
+    margin-left: 0.5em;
+}
