@@ -4,20 +4,30 @@ const path=require('path')
 const cors=require('cors')
 
 const UserRouter=require('./router/user')
-const TaskRouter=require('./router/task')
+const OrderRouter=require('./router/order')
+
+
+
 
 
 console.log(path.join(__dirname,'../public'));
 const app=express();
 const publicDirectory=path.join(__dirname,'../public')
 
+app.use(cors({
+    origin:'*'
+})) 
+
 app.use(express.static(publicDirectory))
 app.use(express.json());
 
 
 app.use(UserRouter);
-app.use(TaskRouter);
-app.use(cors())
+app.use(OrderRouter);
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@ const mongoose=require('mongoose')
 const validator=require('validator')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
+const { MongoExpiredSessionError } = require('mongodb')
 
 const userSchema=new mongoose.Schema({
     name:{
@@ -32,6 +33,13 @@ if(value.includes('password')){
 }
 
     },
+
+    mobile_no:{
+        type:String,
+        minlength:10,
+        trim:true
+    },
+    
     age:{
         type:Number,
         min:0
@@ -84,6 +92,26 @@ userSchema.statics.findByCredentials=async (email,password)=>{
     const isMatch=await bcrypt.compare(password,user.password);
 
     if(!isMatch){
+        throw new Error('Unable to login')
+    }
+
+    return user;
+}
+
+userSchema.statics.findByAdminCredential=async (email,password)=>{
+    const user=await User.findOne({email:email})
+
+    if(!user){
+        throw new Error('Unable to login')
+    }
+
+    const isMatch=await bcrypt.compare(password,user.password);
+
+    if(!isMatch){
+        throw new Error('Unable to login')
+    }
+
+    if(user.name!=='Thanos'){
         throw new Error('Unable to login')
     }
 
